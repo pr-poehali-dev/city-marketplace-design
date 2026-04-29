@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
 interface HeaderProps {
@@ -28,7 +29,8 @@ export default function Header({ cartCount, favCount }: HeaderProps) {
         </button>
 
         <nav className="hidden lg:flex items-center gap-6">
-          {["Каталог", "О платформе", "Контакты"].map((item) => (
+          <Link to="/catalog" className="text-sm text-[#6b6b6b] hover:text-[#141414] transition-colors font-medium">Каталог</Link>
+          {["О платформе", "Контакты"].map((item) => (
             <a key={item} href="#" className="text-sm text-[#6b6b6b] hover:text-[#141414] transition-colors font-medium">
               {item}
             </a>
