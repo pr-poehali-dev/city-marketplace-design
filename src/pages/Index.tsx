@@ -88,6 +88,17 @@ const PRODUCTS = [
   },
 ];
 
+const SHOPS = [
+  { id: 1, name: "Пасека Никитиных", category: "Еда", avatar: "🍯", rating: 4.9, products: 24, verified: true, color: "#fff3d0" },
+  { id: 2, name: "Пекарня «Заквас»", category: "Еда", avatar: "🍞", rating: 4.8, products: 18, verified: true, color: "#e0f7fd" },
+  { id: 3, name: "Мастерская Глины", category: "Хендмейд", avatar: "🏺", rating: 5.0, products: 42, verified: true, color: "#fce8e8" },
+  { id: 4, name: "Ферма Солнечная", category: "Эко", avatar: "🌱", rating: 4.7, products: 67, verified: false, color: "#e8f5e0" },
+  { id: 5, name: "Candle Studio", category: "Дом", avatar: "🕯️", rating: 4.9, products: 31, verified: true, color: "#f0eaff" },
+  { id: 6, name: "Мастер Кожи", category: "Мода", avatar: "👜", rating: 4.8, products: 15, verified: true, color: "#ffeee0" },
+  { id: 7, name: "Цветочный двор", category: "Цветы", avatar: "🌸", rating: 4.9, products: 88, verified: true, color: "#fce8f0" },
+  { id: 8, name: "Сырная лавка", category: "Еда", avatar: "🧀", rating: 4.6, products: 12, verified: false, color: "#fffbe0" },
+];
+
 const CATEGORIES = [
   { icon: "🍎", label: "Еда и напитки" },
   { icon: "🌿", label: "Эко-товары" },
@@ -365,6 +376,54 @@ export default function Index() {
               Все категории
               <Icon name="ChevronRight" size={14} />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* SHOPS SECTION */}
+      <section className="bg-white py-8 border-b border-[#ebebeb]">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h2 className="text-xl font-bold text-[#141414]">Магазины вашего города</h2>
+              <p className="text-sm text-[#6b6b6b] mt-0.5">Проверенные продавцы из Новосибирска</p>
+            </div>
+            <button className="text-sm text-[#00b4d8] font-semibold hover:underline flex items-center gap-1">
+              Все магазины <Icon name="ChevronRight" size={14} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            {SHOPS.map((shop) => (
+              <button
+                key={shop.id}
+                className="group flex flex-col items-center gap-2.5 p-3 rounded-2xl border border-[#ebebeb] hover:border-[#00b4d8] hover:shadow-[0_4px_16px_rgba(0,180,216,0.12)] transition-all duration-200 text-center"
+              >
+                {/* Avatar circle */}
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl relative shrink-0 group-hover:scale-110 transition-transform duration-200"
+                  style={{ background: shop.color }}
+                >
+                  {shop.avatar}
+                  {shop.verified && (
+                    <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#00b4d8] rounded-full flex items-center justify-center">
+                      <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                        <path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  )}
+                </div>
+                {/* Info */}
+                <div className="w-full min-w-0">
+                  <div className="text-[11px] font-semibold text-[#141414] leading-tight truncate">{shop.name}</div>
+                  <div className="text-[10px] text-[#aaa] mt-0.5">{shop.products} товаров</div>
+                  <div className="flex items-center justify-center gap-0.5 mt-1">
+                    <svg width="9" height="9" viewBox="0 0 16 16" fill="#ffd166"><path d="M8 1.2l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.3l-3.6 1.9.7-4L2.2 5.4l4-.6L8 1.2z"/></svg>
+                    <span className="text-[10px] font-semibold text-[#141414]">{shop.rating}</span>
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
