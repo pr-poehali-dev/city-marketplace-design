@@ -146,7 +146,7 @@ function ProductCard({ product }: { product: (typeof PRODUCTS)[0] }) {
   const [inCart, setInCart] = useState(false);
 
   return (
-    <div className="group bg-white border border-[#ebebeb] rounded-2xl overflow-hidden hover:border-[#00b4d8] transition-all duration-300 hover:shadow-[0_4px_24px_rgba(0,180,216,0.12)] flex flex-col">
+    <div className={`group bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,180,216,0.18)] flex flex-col border-t-4 ${product.badge === "city" ? "border-t-[#00b4d8]" : "border-t-[#ffd166]"} border border-[#ebebeb] hover:border-[#00b4d8]`}>
       {/* Image */}
       <div className="relative overflow-hidden bg-[#f8f8f8]" style={{ paddingBottom: "72%" }}>
         <img
@@ -276,23 +276,30 @@ export default function Index() {
         </div>
       </header>
 
-      {/* HERO SEARCH */}
-      <section className="bg-white pt-10 pb-6">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center mb-6">
-            <h1 className="text-3xl md:text-4xl font-black text-[#141414] mb-2 tracking-tight leading-tight">
-              Покупай у <span className="text-[#00b4d8]">местных</span> —{" "}
-              поддерживай{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">свой город</span>
-                <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#ffd166] opacity-50 -z-0 rounded"></span>
-              </span>
+      {/* HERO SEARCH — gradient */}
+      <section
+        className="relative pt-14 pb-10 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #00b4d8 0%, #0090ae 40%, #ffd166 100%)" }}
+      >
+        {/* Decorative circles */}
+        <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 pointer-events-none" />
+        <div className="absolute -bottom-20 -left-10 w-80 h-80 rounded-full bg-white/10 pointer-events-none" />
+        <div className="absolute top-8 left-1/3 w-32 h-32 rounded-full bg-[#ffd166]/20 pointer-events-none" />
+
+        <div className="max-w-[1360px] mx-auto px-6 relative z-10">
+          <div className="max-w-2xl mx-auto text-center mb-7">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+              <span className="w-1.5 h-1.5 bg-[#ffd166] rounded-full"></span>
+              1 240 товаров от местных мастеров
+            </div>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-3 tracking-tight leading-tight drop-shadow-sm">
+              Покупай у местных —<br/>поддерживай свой город
             </h1>
-            <p className="text-[#6b6b6b] text-base">Товары от лучших производителей и мастеров вашего города</p>
+            <p className="text-white/80 text-base">Товары от лучших производителей и мастеров вашего города</p>
           </div>
 
           <div className="max-w-2xl mx-auto">
-            <div className="flex items-center gap-0 bg-white border-2 border-[#ebebeb] rounded-2xl overflow-hidden hover:border-[#00b4d8] transition-colors focus-within:border-[#00b4d8] shadow-sm">
+            <div className="flex items-center gap-0 bg-white rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.15)] border-2 border-white">
               <div className="pl-4 text-[#aaa]">
                 <Icon name="Search" size={20} />
               </div>
@@ -303,7 +310,7 @@ export default function Index() {
                 placeholder="Мёд, хлеб, керамика, свечи..."
                 className="flex-1 px-3 py-4 text-sm outline-none bg-transparent text-[#141414] placeholder:text-[#bbb]"
               />
-              <button className="m-1.5 bg-[#ffd166] hover:bg-[#f0b800] transition-colors text-[#141414] font-semibold px-5 py-3 rounded-xl text-sm shrink-0">
+              <button className="m-1.5 bg-[#ffd166] hover:bg-[#f0b800] transition-colors text-[#141414] font-bold px-6 py-3 rounded-xl text-sm shrink-0 shadow-sm">
                 Найти
               </button>
             </div>
@@ -314,8 +321,8 @@ export default function Index() {
               onClick={() => setActiveFilter("city")}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeFilter === "city"
-                  ? "bg-[#00b4d8] text-white"
-                  : "bg-white border border-[#d0d0d0] text-[#6b6b6b] hover:border-[#00b4d8] hover:text-[#00b4d8]"
+                  ? "bg-white text-[#00b4d8] shadow-sm"
+                  : "bg-white/20 border border-white/40 text-white hover:bg-white/30"
               }`}
             >
               <Icon name="MapPin" size={13} />
@@ -325,8 +332,8 @@ export default function Index() {
               onClick={() => setActiveFilter("rf")}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeFilter === "rf"
-                  ? "bg-[#00b4d8] text-white"
-                  : "bg-white border border-[#141414] text-[#141414] hover:border-[#00b4d8] hover:text-[#00b4d8]"
+                  ? "bg-white text-[#00b4d8] shadow-sm"
+                  : "bg-white/20 border border-white/40 text-white hover:bg-white/30"
               }`}
             >
               <Icon name="Truck" size={13} />
@@ -337,24 +344,24 @@ export default function Index() {
       </section>
 
       {/* CATEGORIES */}
-      <section className="bg-white pb-6">
+      <section className="bg-white py-5 border-b border-[#ebebeb]">
         <div className="max-w-[1360px] mx-auto px-6">
           <div className="flex items-center gap-3 overflow-x-auto pb-1">
             {CATEGORIES.map((cat, i) => (
               <button
                 key={i}
                 onClick={() => setActiveCategory(activeCategory === i ? null : i)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                   activeCategory === i
-                    ? "bg-[#e0f7fd] text-[#00b4d8] border border-[#00b4d8]"
-                    : "bg-[#f5f5f5] text-[#141414] hover:bg-[#e0f7fd] hover:text-[#00b4d8] border border-transparent"
+                    ? "bg-[#00b4d8] text-white shadow-sm"
+                    : "bg-[#f5f5f5] text-[#141414] hover:bg-[#00b4d8] hover:text-white border border-transparent"
                 }`}
               >
                 <span className="text-base">{cat.icon}</span>
                 {cat.label}
               </button>
             ))}
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[#6b6b6b] hover:text-[#141414] transition-colors whitespace-nowrap">
+            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[#6b6b6b] hover:text-[#00b4d8] transition-colors whitespace-nowrap ml-1">
               Все категории
               <Icon name="ChevronRight" size={14} />
             </button>
@@ -399,7 +406,7 @@ export default function Index() {
       </main>
 
       {/* REVIEWS */}
-      <section className="bg-white py-12 border-t border-[#ebebeb]">
+      <section className="py-12" style={{ background: "linear-gradient(135deg, #e0f7fd 0%, #fff9e6 100%)" }}>
         <div className="max-w-[1360px] mx-auto px-6">
           <div className="flex items-start justify-between mb-8">
             <div>
@@ -419,7 +426,7 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {REVIEWS.map((review) => (
-              <div key={review.id} className="bg-[#fafafa] rounded-2xl p-5 border border-[#ebebeb] hover:border-[#00b4d8] transition-colors">
+              <div key={review.id} className="bg-white rounded-2xl p-5 border border-white hover:border-[#00b4d8] transition-colors shadow-sm hover:shadow-[0_4px_20px_rgba(0,180,216,0.12)]">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-9 h-9 rounded-full bg-[#00b4d8] flex items-center justify-center text-white font-bold text-sm shrink-0">
                     {review.avatar}
@@ -440,14 +447,22 @@ export default function Index() {
       </section>
 
       {/* CTA BANNER */}
-      <section className="bg-[#fafafa] py-10 border-t border-[#ebebeb]">
+      <section className="bg-white py-10 border-t border-[#ebebeb]">
         <div className="max-w-[1360px] mx-auto px-6">
-          <div className="bg-gradient-to-r from-[#00b4d8] to-[#0090ae] rounded-3xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-white">
-              <h3 className="text-xl font-black mb-1">Ты — мастер или производитель?</h3>
-              <p className="text-white/80 text-sm">Разместите свои товары и начните продавать уже сегодня. Бесплатно.</p>
+          <div
+            className="rounded-3xl px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #00b4d8 0%, #0090ae 50%, #007a96 100%)" }}
+          >
+            <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-[#ffd166]/20 pointer-events-none" />
+            <div className="absolute right-24 bottom-0 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
+            <div className="text-white relative z-10">
+              <div className="inline-flex items-center gap-1.5 bg-[#ffd166]/30 text-[#ffd166] text-xs font-bold px-3 py-1 rounded-full mb-3">
+                <span>✦</span> Бесплатно
+              </div>
+              <h3 className="text-2xl font-black mb-1">Ты — мастер или производитель?</h3>
+              <p className="text-white/80 text-sm">Разместите свои товары и начните продавать уже сегодня.</p>
             </div>
-            <button className="shrink-0 bg-[#ffd166] hover:bg-[#f0b800] transition-colors text-[#141414] font-bold px-6 py-3 rounded-xl text-sm">
+            <button className="shrink-0 bg-[#ffd166] hover:bg-[#f0b800] transition-all text-[#141414] font-bold px-8 py-3.5 rounded-xl text-sm shadow-lg hover:shadow-xl relative z-10">
               Стать поставщиком →
             </button>
           </div>
@@ -455,14 +470,14 @@ export default function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#141414] text-white py-10">
+      <footer className="text-white py-10" style={{ background: "linear-gradient(135deg, #007a96 0%, #005f75 100%)" }}>
         <div className="max-w-[1360px] mx-auto px-6">
           <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <div className="shrink-0">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg bg-[#00b4d8] flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-[#ffd166] flex items-center justify-center">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="white"/>
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="#141414"/>
                   </svg>
                 </div>
                 <span className="font-bold text-white">Всети города</span>
